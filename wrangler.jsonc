@@ -1,0 +1,46 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "claude-code-containers",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-05-23",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"observability": {
+		"enabled": true
+	},
+	"containers": [
+		{
+			"class_name": "MyContainer",
+			"image": "./Dockerfile",
+			"max_instances": 10,
+			"name": "claude-code-containers"
+		}
+	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"class_name": "MyContainer",
+				"name": "MY_CONTAINER"
+			},
+			{
+				"class_name": "GitHubAppConfigDO",
+				"name": "GITHUB_APP_CONFIG"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"new_sqlite_classes": [
+				"MyContainer"
+			],
+			"tag": "v1"
+		},
+		{
+			"new_sqlite_classes": [
+				"GitHubAppConfigDO"
+			],
+			"tag": "v2"
+		}
+	]
+}
